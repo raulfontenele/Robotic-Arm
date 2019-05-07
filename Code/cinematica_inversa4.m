@@ -10,20 +10,26 @@ w = sqrt(x^2 + y^2);
 
 wlinha = sqrt( (a1-a3-z)^2 + (w-a2)^2 );
 
-alpha = atan( (w-a2)/(a1-a3-z)  );
+try
+    alpha = atan( (w-a2)/(a1-a3-z)  );
+catch
+    try
+        alpha = asin((w-a2)/wlinha);
+    catch
+        alpha = acos((a1-a3-z)/wlinha);
+    end
+end
 
-if (a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha) > 1
-    beta = acos((a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha)-1);
-elseif (a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha) < -1
-    beta = acos((a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha)+1);
+if (a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha) > 1 || (a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha) < -1
+    pontoFlutuante = (a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha) - fix((a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha));
+    beta = acos(pontoFlutuante);
 else
     beta = acos((a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha));
 end
 
-if (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) > 1
-    gama = acos( (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) - 1);
-elseif (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) < -1
-    gama = acos( (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) + 1);
+if (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) > 1 || (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) < -1
+    pontoFlutuante = (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) - fix((a4^2 + a5^2 - wlinha^2)/(2*a4*a5));
+    gama = acos(pontoFlutuante );
 else
     gama = acos((a4^2 + a5^2 - wlinha^2)/(2*a4*a5));
 end
