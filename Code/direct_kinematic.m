@@ -1,4 +1,4 @@
-%% Cinemática direta
+function [ cooX,cooY,cooZ ] = direct_kinematic( t1,t2,t3 )
 
 a1 = 39.45;
 a2 = 42.40;
@@ -6,11 +6,7 @@ a3 = 9.11;
 a4 = 43.05;
 a5 = 17.15;
 
-syms t1 t2 t3;
-
-% t1g = -26.5651;
-% t2g = -42.1332;
-% t3g =  87.2715;
+%syms t1 t2 t3;
 
 % t1 =  0.3218;
 % t2 =  0.4895;
@@ -30,3 +26,12 @@ M34 = Rot('y',t3)*Trans('z',a5);
 
 
 M13 = M01*M12*M23*M34;
+
+cooX = M13(1,4);
+cooY = M13(2,4);
+cooZ = M13(3,4);
+
+
+
+end
+

@@ -27,6 +27,8 @@ else
     beta = acos((a4^2+ wlinha^2 - a5^2)/(2*a4*wlinha));
 end
 
+
+
 if (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) > 1 || (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) < -1
     pontoFlutuante = (a4^2 + a5^2 - wlinha^2)/(2*a4*a5) - fix((a4^2 + a5^2 - wlinha^2)/(2*a4*a5));
     gama = acos(pontoFlutuante );
@@ -34,33 +36,59 @@ else
     gama = acos((a4^2 + a5^2 - wlinha^2)/(2*a4*a5));
 end
 
-t1 = atan(y/x);
-t2 = pi/2 - beta - alpha;
-t3 = pi-gama;
 
-if(180*t1/pi + 90<180 && 180*t1/pi + 90 > 0)
-    teta1 = 180*t1/pi + 90;
-elseif 180*t1/pi + 90 > 180
-    teta1 = 180;
-else
+
+
+if atan(y/x) < 0
     teta1 = 0;
-end
-    
-if(180*t2/pi + 90<180 && 180*t2/pi + 90 > 0)
-    teta2 = 180*t2/pi + 90;
-elseif 180*t2/pi + 90>180
-    teta2 = 180;
+elseif atan(y/x) > pi
+    teta1 = pi;
 else
-    teta2 = 0;
+    teta1 = atan(y/x);
 end
 
-if(180*t3/pi + 90<180 && 180*t3/pi + 90 > 0)
-    teta3 = 180*t3/pi + 90;
-elseif 180*t3/pi + 90>180
-    teta3 = 180;
+if pi/2 - beta - alpha < 0
+    teta2 = 0;
+elseif atan(y/x) > pi
+    teta2 = pi;
 else
-    teta3 = 0;
+    teta2 = pi/2 - beta - alpha;
 end
+
+if pi-gama < 0
+    teta3 = 0;
+elseif pi-gama > pi
+    teta3 = pi;
+else
+    teta3 = pi-gama;
+end
+
+% t2 = pi/2 - beta - alpha;
+% t3 = pi-gama;
+
+% if(180*t1/pi + 90<180 && 180*t1/pi + 90 > 0)
+%     teta1 = 180*t1/pi + 90;
+% elseif 180*t1/pi + 90 > 180
+%     teta1 = 180;
+% else
+%     teta1 = 0;
+% end
+%     
+% if(180*t2/pi + 90<180 && 180*t2/pi + 90 > 0)
+%     teta2 = 180*t2/pi + 90;
+% elseif 180*t2/pi + 90>180
+%     teta2 = 180;
+% else
+%     teta2 = 0;
+% end
+% 
+% if(180*t3/pi + 90<180 && 180*t3/pi + 90 > 0)
+%     teta3 = 180*t3/pi + 90;
+% elseif 180*t3/pi + 90>180
+%     teta3 = 180;
+% else
+%     teta3 = 0;
+% end
 
 
 end
