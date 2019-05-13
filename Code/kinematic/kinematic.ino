@@ -10,29 +10,24 @@
 #define a2 42.4
 #define a3 9.11
 #define a4 43.05
-#define a5 17.15
-
+#define a5 86 
+//#define a5 76 
 
 Servo servoPonta;
 Servo servoBase;
 Servo servoMeio;
 
-float t11, t22, t33;
+double LastPosX;
+double LastPosY;
+double LastPosZ;
 
-
-double X, Y, Z;
 double t1, t2, t3;
 
 
-void PositionChecker(double x, double y, double z) {
-
-  if (x < 55) x = 55;
-}
 
 void Inversa(double x, double y, double z) {
 
-  //PositionChecker(x, y, z);
-
+  
   double w = sqrt((x * x) + (y * y));
 
   double wlinha = sqrt( pow((a1 - a3 - z), 2) + pow((w - a2), 2) );
@@ -48,92 +43,36 @@ void Inversa(double x, double y, double z) {
     alpha = asin( (w - a2) / (wlinha) );
   }
 
-
   if ( (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha ) > 1  || (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha ) < -1)
   {
     int parteInteira = (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha );
 
     double pontoFlutuante = (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha ) - parteInteira;
-
-//    Serial.println("Ponto flutuante");
-//    Serial.println(pontoFlutuante);
-
     b = acos( pontoFlutuante );
-
-//    Serial.println("cos");
-//    Serial.println(b);
-
   }
   else {
     b = acos( (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha ) );
-//    Serial.println("cos");
-//    Serial.println(b);
+
   }
-
-
-
   if ( (pow(a4, 2) + pow(a5, 2) - pow(wlinha, 2) ) / (2 * a4 * a5) > 1 || (pow(a4, 2) + pow(a5, 2) - pow(wlinha, 2) ) / (2 * a4 * a5) < -1)
   {
     int parteInteira = (pow(a4, 2) + pow(a5, 2) - pow(wlinha, 2) ) / (2 * a4 * a5);
 
-    double pontoFlutuante = (pow(a4, 2) + pow(wlinha, 2) - pow(a5, 2) ) / ( 2 * a4 * wlinha ) - parteInteira;
-
-    Serial.println("parteInteira");
-    Serial.println(parteInteira);
-
-        Serial.println("ponroFlutuante");
-    Serial.println(pontoFlutuante);
-
+    double pontoFlutuante = (pow(a4, 2) + pow(a5, 2) - pow(wlinha, 2) ) / (2 * a4 * a5) - parteInteira;
     gama = acos( pontoFlutuante );
-
-//    Serial.println("cos");
-//    Serial.println(gama);
 
   }
 
   else {
     gama = acos( (pow(a4, 2) + pow(a5, 2) - pow(wlinha, 2) ) / (2 * a4 * a5) );
-
-//    Serial.println("cos");
-//    Serial.println(gama);
   }
 
-
-
-  //double gama = acos( (pow(a4,2)+pow(a5,2)-pow(wlinha,2) ) / (2*a4*a5) );
-
-
-
-//  Serial.println("w");
-//  Serial.println(w);
-//
-//  Serial.println("w'");
-//  Serial.println(wlinha);
-//
-//  Serial.println("alpha");
-//  Serial.println(alpha);
-//
-//  Serial.println("beta");
-//  Serial.println(b);
-//
-//  Serial.println("gama");
-//  Serial.println(gama);
 
   t1 = atan2(y, x);
 
   t2 = HALF_PI - b - alpha;
 
   t3 = PI - gama;
-
-  if(t1>PI) t1 = PI;
-  else if (t1<0) t1 = 0;
-
-    if(t2>PI) t2 = PI;
-  else if (t2<0) t2 = 0;
-
-    if(t3>PI) t3 = PI;
-  else if (t3<0) t3 = 0;
-
 
   Serial.println("Angulo em radiano");
   Serial.println(t1);
@@ -144,92 +83,553 @@ void Inversa(double x, double y, double z) {
   t2 = t2 * 180 / PI;
   t3 = t3 * 180 / PI;
 
-
-
   Serial.println("Angulo em graus");
   Serial.println(t1);
   Serial.println(t2);
   Serial.println(t3);
-
-//  t11 = map(t1, -90, 90, 0, 180);
-//  t22 = map(t2, -90, 90, 0, 180);
-//  t33 = map(t3, -90, 90, 0, 180);
-
-//  Serial.println("Angulo mapeados");
-//  Serial.println(t11);
-//  Serial.println(t22);
-//  Serial.println(t33);
-
-  if (t11 > 180)  t11 = 178;
-  else if (t11 < 0)  t11 = 0;
-
-  if (t22 > 180)  t22 = 178;
-  else if (t22 < 0)  t22 = 0;
-
-  if (t33 > 180)  t33 = 178;
-  else if (t33 < 0)  t33 = 0;
-
+ Serial.println("===================================================");  
   
-//  Serial.println("Angulo mapeados apos as limitações");
-//  Serial.println(t11);
-//  Serial.println(t22);
-//  Serial.println(t33);
-
-  servoPonta.write(t11);
-  servoBase.write(t22);
-  servoMeio.write(t33);
 }
 
-void Direta(double teta1, double teta2, double teta3) {
+void DesiredPosition2(double x, double y, double z){
+    Inversa(LastPosX,LastPosY,LastPosZ);
 
-  X = (cos(t11) * (861 * cos(t22 + t33) + 848 * cos(t22) + 789)) / 20;
-  Y = (sin(t11) * (861 * cos(t22 + t33) + 848 * cos(t22) + 789)) / 20;
-  Z = 343 / 20 - (212 * sin(t22)) / 5 - (861 * sin(t22 + t33)) / 20;
+    double t1Ant = t1;
+    double t2Ant= t2;
+    double t3Ant=t3;
+    
+    Inversa(x,y,z);
+
+    double DesiredT1 = t1;
+    double DesiredT2 = t2;
+    double DesiredT3 = t3;    
+
+    Serial.print("Angulo1 Atual: ");
+    Serial.print(t1Ant);
+    Serial.print("   |   ");
+    Serial.print("Angulo1 Desejado: ");
+    Serial.println(DesiredT1);
+
+    Serial.print("Angulo2 Atual: ");
+    Serial.print(t2Ant);
+    Serial.print("   |   ");
+    Serial.print("Angulo2 Desejado: ");
+    Serial.println(DesiredT2);
+
+    Serial.print("Angulo2 Atual: ");
+    Serial.print(t3Ant);
+    Serial.print("   |   ");
+    Serial.print("Angulo3 Desejado: ");
+    Serial.println(DesiredT3);
+
+    double deltaT1 = (t1 - t1Ant)/30;
+    double deltaT2 = (t2 - t2Ant)/30;
+    double deltaT3 = (t3 - t3Ant)/30;
+    Serial.println("DESIRED NEW");
+    int i;
+    for(i=0;i<=30;i++){
+
+      Serial.print("t1:  ");
+      Serial.print((t1Ant+deltaT1*i)+90);
+      Serial.print("    |   ");
+      Serial.print("t2:  ");
+      Serial.print((t2Ant+deltaT2*i)+90);
+      Serial.print("    |   ");
+      Serial.print("t3:  ");
+      Serial.print((t3Ant+deltaT3*i)+90);
+      Serial.println("");
+      servoPonta.write((t3Ant+deltaT3*i)+90);
+ 
+      servoBase.write((t1Ant+deltaT1*i)+90);
+      servoMeio.write((t2Ant+deltaT2*i)+90); 
+      
+      delay(50);
+    }
+    
+    i--;
+    Serial.println("DESIRED done:");
+    Serial.println(int(t1Ant+deltaT1*i)+90);
+    Serial.println(int(t2Ant+deltaT2*i)+90);
+    Serial.println(int(t3Ant+deltaT3*i)+90);
+    Serial.println("---------------------------");
+
+    LastPosX = x;
+    LastPosY = y;
+    LastPosZ = z;
+}
+
+void write_Paulo()
+{
+//P
+
+
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,15,-70);
+    delay(300);
+    DesiredPosition2(80,15,-70);
+    delay(300);
+    DesiredPosition2(80,0,-70);
+
+    //=========================//
+    DesiredPosition2(90,0,-50);
+    delay(500);
+    DesiredPosition2(90,0,-70);
+   //=========================//
+   
+      //A
+  
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,15,-70);
+    delay(300);
+    DesiredPosition2(90,15,-70);
+    delay(300);
+
+    DesiredPosition2(90,0,-50);
+    delay(300);
+
+    DesiredPosition2(75,0,-50);
+    delay(300);
+    DesiredPosition2(75,-1,-70);
+    delay(300);
+    DesiredPosition2(75,20,-70);
+
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+    // U
+   
+    DesiredPosition2(100,20,-70);
+    delay(500);
+    
+    DesiredPosition2(100,0,-50);
+    delay(500);
+
+    DesiredPosition2(100,0,-70);
+    delay(500);
+    
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    
+    DesiredPosition2(100,20,-50);
+    delay(500);
+
+    DesiredPosition2(100,20,-70);
+    delay(500);
+
+    DesiredPosition2(60,16,-70);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+    //L
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,20,-70);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+     // O
+    DesiredPosition2(100,20,-70);
+    delay(500);
+    DesiredPosition2(60,17,-70);
+    delay(500);
+    DesiredPosition2(60,0,-70);   
+    delay(500);
+    DesiredPosition2(100,0,-70);   
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+     // C
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,20,-70);   
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(80,0,-30);
+    delay(500);
+   //=========================//
 
 }
 
-//pino 7 teta1
-//ppino 5 teta2
-//pino 3 teta3
+void write_Raul()
+{
+   // R
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,15,-70);
+    delay(300);
+    DesiredPosition2(80,15,-70);
+    delay(300);
+    DesiredPosition2(80,0,-70);
+    
+    DesiredPosition2(80,15,-70);
+    delay(500);
+    DesiredPosition2(100,15,-70);
+    delay(500);
+
+     //=========================//
+    DesiredPosition2(90,0,-50);
+    delay(500);
+    DesiredPosition2(90,0,-70);
+   //=========================//
+   
+      //A
+  
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,15,-70);
+    delay(300);
+    DesiredPosition2(90,15,-70);
+    delay(300);
+
+    DesiredPosition2(90,0,-50);
+    delay(300);
+
+    DesiredPosition2(75,0,-50);
+    delay(300);
+    DesiredPosition2(75,-1,-70);
+    delay(300);
+    DesiredPosition2(75,20,-70);
+
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+    // U
+   
+    DesiredPosition2(100,20,-70);
+    delay(500);
+    
+    DesiredPosition2(100,0,-50);
+    delay(500);
+
+    DesiredPosition2(100,0,-70);
+    delay(500);
+    
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    
+    DesiredPosition2(100,20,-50);
+    delay(500);
+
+    DesiredPosition2(100,20,-70);
+    delay(500);
+
+    DesiredPosition2(60,16,-70);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+    //L
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,20,-70);
+    delay(500);
+}
+
+
 void setup() {
   // put your setup code here, to run once:
   servoPonta.attach(3); // ponta
   servoBase.attach(5);// base
   servoMeio.attach(6);  //meio
-  pinMode(13, OUTPUT);
+
   Serial.begin(9600);
   Serial.println("=====================================================================================");
-  //  t1=map(0, -90, 90, 0, 180);
-  //  t2=map(0, -90, 90, 0, 180);
-  //  t3=map(0, -90, 90, 0, 180);
-  //servoPonta.write(146.00);
-  //servoMeio.write(142.00);
-  //servoBase.write(108);
-  //Inversa(60, 0, -20);
+
+    delay(1000); 
+    LastPosX = 100;
+    LastPosY = 0;
+    LastPosZ = -70;
 }
 int cont = 0;
 
 void loop() {
   // put your main code here, to run repeatedly:
-  //digitalWrite(13,HIGH);
-  delay(500);
 
-  //digitalWrite(13,LOW);
-  delay(500);
-  if (cont == 0) {
-    delay(1000);
-    Inversa(60, 0, -20);
-    delay(1000);
-    Inversa(90, 0, -20);
-    delay(1000);
-    Inversa(90, 20, -20);
-    delay(1000);
-    Inversa(70, 20, -20);
-    delay(1000);
-    Inversa(70, 0, -20);
-    cont++;
-    //m1.write(t1*180/PI);
-    //m2.write(t2*180/PI);
-    // m3.write(t3*180/PI);
+  if(cont == 0){
+  servoMeio.write(90);
+  servoPonta.write(90);
+  servoBase.write(90);
+  delay(2000);
+
+
+
+  write_Raul();
+   //write_Paulo();
+
+/*
+   //P
+
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,20,-70);
+    delay(300);
+    DesiredPosition2(75,20,-70);
+    delay(300);
+    DesiredPosition2(75,0,-70);
+
+
+//===============================//
+
+    DesiredPosition2(90,0,-30);
+    delay(500);
+    DesiredPosition2(60,0,-70);
+
+//===============================//
+/*
+    // L
+    //LastPosX = 60;
+    //LastPosY = 0;
+    //LastPosZ = -70;
+    
+     DesiredPosition2(90,20,-70);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);
+*/
+/*
+ 
+  //A
+  
+    DesiredPosition2(90,0,-70);
+    delay(300);
+    DesiredPosition2(90,20,-70);
+    delay(300);
+    DesiredPosition2(60,20,-70);
+    delay(300);
+
+    DesiredPosition2(75,0,-50);
+    delay(300);
+        DesiredPosition2(75,0,-70);
+    delay(300);
+    DesiredPosition2(75,20,-70);
+
+ */
+ 
+
+  /**
+   * 
+   * tentando T
+    LastPosX = 60;
+    LastPosY = -20;
+    LastPosZ = -70;
+    DesiredPosition2(60,20,-70);
+    delay(500);
+    
+    servoMeio.write(90);
+    servoPonta.write(90);
+    servoBase.write(90);
+
+    LastPosX = 100;
+    LastPosY = 0;
+    LastPosZ = -70;
+    DesiredPosition2(60,0,70);
+    delay(500);
+
+   * 
+   * 
+   *
+
+   */
+   
+   
+   
+   /*
+      tentando E
+
+      LastPosX = 60;
+      LastPosY = 20;
+      LastPosZ = -70;
+      
+      DesiredPosition2(60,0,-70);
+      delay(500);
+      DesiredPosition2(100,20,-70);
+      delay(500);
+      DesiredPosition2(100,0,-70);
+      delay(500);
+
+      servoMeio.write(90);
+      servoPonta.write(90);
+      servoBase.write(90);
+      LastPosX = 80;
+      LastPosY = 0;
+      LastPosZ = -70;
+      DesiredPosition2(80,20,-70);
+      delay(500);   
+   
+   */
+
+  /*
+  //tendando a PORRA DO N
+      LastPosX = 60;
+      LastPosY = 20;
+      LastPosZ = -70;
+
+     DesiredPosition2(100,20,-70);
+     delay(500);
+     DesiredPosition2(60,0,-70);
+     delay(500);
+     DesiredPosition2(100,0,-70);
+     delay(500);
+
+  */
+  
+  
+
+
+  /**
+   * I
+   * 
+   
+    DesiredPosition2(60,0,-70);
+    delay(500);
+   * 
+   * /  
+   * 
+    */
+   /*
+
+
+/*
+ * R
+    LastPosX = 100;
+    LastPosY = 0;
+    LastPosZ = -70;
+  
+
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);
+    DesiredPosition2(80,20,-70);
+    delay(500);
+    DesiredPosition2(80,0,-70);
+    delay(500);
+    DesiredPosition2(80,20,-70);
+        delay(500);
+    DesiredPosition2(100,20,-70);
+*/
+/*
+ * 
+
+
+/*
+ * v
+    LastPosX = 60;
+    LastPosY = 0;
+    LastPosZ = -70;
+    
+     DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,20,-70);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);
+*/
+
+
+
+/*
+ * U
+     LastPosX = 60;
+    LastPosY = 0;
+    LastPosZ = -70;
+    
+     DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,23,-70);
+    delay(500);
+
+          servoMeio.write(90);
+  servoPonta.write(90);
+  servoBase.write(90);
+
+    LastPosX = 100;
+    LastPosY = 20;
+    LastPosZ = -70;
+
+    DesiredPosition2(65,20,-70);
+  */
+    /*
+     * O
+     DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(60,15,-70);
+    delay(500);
+    DesiredPosition2(100,15,-70);   
+    delay(500);
+    DesiredPosition2(100,0,-70);
+
+          */
+
+/*
+
+              LastPosX = 100;
+    LastPosY = 20;
+    LastPosZ = -70;
+         Inversa(100,20,-70);
+
+         
+      servoMeio.write(t2);
+  servoPonta.write(t3);
+  servoBase.write(t1);
+         
+         DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(60,0,-70);
+    delay(500);
+        DesiredPosition2(60,20,-70);
+        */
+    cont = 1;
   }
+
 }
