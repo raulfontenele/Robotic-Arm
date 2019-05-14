@@ -286,6 +286,130 @@ void write_Paulo()
 
 }
 
+void write_littleGain(){
+
+  // * V
+    LastPosX = 60;
+    LastPosY = 0;
+    LastPosZ = -70;
+    
+     DesiredPosition2(100,0,-70);
+    delay(500);
+    DesiredPosition2(100,10,-70);
+    delay(500);
+    DesiredPosition2(70,20,-70);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(90,0,-50);
+    delay(500);
+    DesiredPosition2(90,0,-70);
+    delay(500);
+   //=========================//
+
+     //A
+  
+    DesiredPosition2(60,0,-70);
+    delay(300);
+    DesiredPosition2(60,15,-70);
+    delay(300);
+    DesiredPosition2(90,15,-70);
+    delay(300);
+
+    DesiredPosition2(90,0,-50);
+    delay(300);
+
+    DesiredPosition2(75,0,-50);
+    delay(300);
+    DesiredPosition2(75,-1,-70);
+    delay(300);
+    DesiredPosition2(75,20,-70);
+
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+  
+   //L
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-72);
+    delay(500);
+    DesiredPosition2(100,20,-72);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,10,-50);
+    delay(500);
+    DesiredPosition2(100,10,-70);
+    delay(500);
+   //=========================//
+    //T
+    DesiredPosition2(60,10,-70);
+    delay(500);
+    
+    DesiredPosition2(60,0,-70);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);   
+
+    
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-70);
+    delay(500);
+   //=========================//
+
+
+      //tentando E
+      
+
+    DesiredPosition2(60,0,-72);
+    delay(500);
+    DesiredPosition2(60,16,-72);
+    delay(500);
+    DesiredPosition2(102,0,-50);
+    delay(500);
+    DesiredPosition2(95,0,-72);
+    delay(500);
+    DesiredPosition2(95,22,-72);   
+    delay(500);
+
+    DesiredPosition2(80,-1,-50);
+    delay(500);
+    DesiredPosition2(80,-1,-72);
+    delay(500);
+    DesiredPosition2(80,18,-72);
+    delay(500);
+
+   //=========================//
+    DesiredPosition2(60,20,-50);
+    delay(500);
+    DesiredPosition2(60,20,-70);
+    delay(500);
+   //=========================//
+
+
+
+  //tendando a PORRA DO N
+      
+     DesiredPosition2(100,20,-70);
+     delay(500);
+     DesiredPosition2(60,0,-70);
+     delay(500);
+     DesiredPosition2(100,0,-70);
+     delay(500);
+   
+
+}
+
 void write_Raul()
 {
    // R
@@ -442,13 +566,12 @@ void loop() {
   delay(2000);
 
 
-
-  write_Raul();
+  write_littleGain();
+ // write_Raul();
    //write_Paulo();
 
 /*
    //P
-
     DesiredPosition2(60,0,-70);
     delay(300);
     DesiredPosition2(60,20,-70);
@@ -456,14 +579,10 @@ void loop() {
     DesiredPosition2(75,20,-70);
     delay(300);
     DesiredPosition2(75,0,-70);
-
-
 //===============================//
-
     DesiredPosition2(90,0,-30);
     delay(500);
     DesiredPosition2(60,0,-70);
-
 //===============================//
 /*
     // L
@@ -486,13 +605,11 @@ void loop() {
     delay(300);
     DesiredPosition2(60,20,-70);
     delay(300);
-
     DesiredPosition2(75,0,-50);
     delay(300);
         DesiredPosition2(75,0,-70);
     delay(300);
     DesiredPosition2(75,20,-70);
-
  */
  
 
@@ -508,24 +625,20 @@ void loop() {
     servoMeio.write(90);
     servoPonta.write(90);
     servoBase.write(90);
-
     LastPosX = 100;
     LastPosY = 0;
     LastPosZ = -70;
     DesiredPosition2(60,0,70);
     delay(500);
-
    * 
    * 
    *
-
    */
    
    
    
    /*
       tentando E
-
       LastPosX = 60;
       LastPosY = 20;
       LastPosZ = -70;
@@ -536,7 +649,6 @@ void loop() {
       delay(500);
       DesiredPosition2(100,0,-70);
       delay(500);
-
       servoMeio.write(90);
       servoPonta.write(90);
       servoBase.write(90);
@@ -553,14 +665,12 @@ void loop() {
       LastPosX = 60;
       LastPosY = 20;
       LastPosZ = -70;
-
      DesiredPosition2(100,20,-70);
      delay(500);
      DesiredPosition2(60,0,-70);
      delay(500);
      DesiredPosition2(100,0,-70);
      delay(500);
-
   */
   
   
@@ -577,15 +687,12 @@ void loop() {
    * 
     */
    /*
-
-
 /*
  * R
     LastPosX = 100;
     LastPosY = 0;
     LastPosZ = -70;
   
-
     DesiredPosition2(60,0,-70);
     delay(500);
     DesiredPosition2(60,20,-70);
@@ -600,8 +707,6 @@ void loop() {
 */
 /*
  * 
-
-
 /*
  * v
     LastPosX = 60;
@@ -628,15 +733,12 @@ void loop() {
     delay(500);
     DesiredPosition2(100,23,-70);
     delay(500);
-
           servoMeio.write(90);
   servoPonta.write(90);
   servoBase.write(90);
-
     LastPosX = 100;
     LastPosY = 20;
     LastPosZ = -70;
-
     DesiredPosition2(65,20,-70);
   */
     /*
@@ -648,16 +750,13 @@ void loop() {
     DesiredPosition2(100,15,-70);   
     delay(500);
     DesiredPosition2(100,0,-70);
-
           */
 
 /*
-
               LastPosX = 100;
     LastPosY = 20;
     LastPosZ = -70;
          Inversa(100,20,-70);
-
          
       servoMeio.write(t2);
   servoPonta.write(t3);
