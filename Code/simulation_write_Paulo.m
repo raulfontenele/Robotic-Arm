@@ -3,11 +3,11 @@ clc;
 clear all;
 
 
-[t1,t2,t3] = cinematica_inversa(50,0,-50);
+[t1,t2,t3] = reverse_kinematics(50,0,-50);
 i = 1;
 [x(i),y(i),z(i)] = direct_kinematic(t1,t2,t3);
 
-[t11,t22,t33] = cinematica_inversa(100,0,-50);
+[t11,t22,t33] = reverse_kinematics(100,0,-50);
 
 i = i+1;
 [x(i),y(i),z(i)] = direct_kinematic(t11,t2,t3);
@@ -20,7 +20,7 @@ t1 = t11;
 t2 = t22;
 t3 = t33;
 
-[t11,t22,t33] = cinematica_inversa(100,0,-50);
+[t11,t22,t33] = reverse_kinematics(100,0,-50);
 i = i+1;
 [x(i),y(i),z(i)] = direct_kinematic(t11,t2,t3);
 i = i+1;
@@ -32,7 +32,7 @@ t1 = t11;
 t2 = t22;
 t3 = t33;
 
-[t11,t22,t33] = cinematica_inversa(100,30,-50);
+[t11,t22,t33] = reverse_kinematics(100,30,-50);
 i = i+1;
 [x(i),y(i),z(i)] = direct_kinematic(t11,t2,t3);
 i = i+1;
@@ -44,7 +44,7 @@ t1 = t11;
 t2 = t22;
 t3 = t33;
 
-[t11,t22,t33] = cinematica_inversa(80,30,-50);
+[t11,t22,t33] = reverse_kinematics(80,30,-50);
 i = i+1;
 [x(i),y(i),z(i)] = direct_kinematic(t11,t2,t3);
 i = i+1;
@@ -56,7 +56,7 @@ t1 = t11;
 t2 = t22;
 t3 = t33;
 
-[t11,t22,t33] = cinematica_inversa(80,0,-50);
+[t11,t22,t33] = reverse_kinematics(80,0,-50);
 i = i+1;
 [x(i),y(i),z(i)] = direct_kinematic(t11,t2,t3);
 i = i+1;
@@ -71,8 +71,8 @@ grid;
 clc;
 clear all;
 
-[t1,t2,t3] = cinematica_inversa(50,0,-50);
-[t11,t22,t33] = cinematica_inversa(100,0,-50);
+[t1,t2,t3] = reverse_kinematics(50,0,-50);
+[t11,t22,t33] = reverse_kinematics(100,0,-50);
 
 deltaT1 = (t11 - t1)/50;
 deltaT2 = (t22 - t2)/50;
@@ -87,8 +87,8 @@ plot3(x,y,z);
 grid;
 hold on;
 
-[t1,t2,t3] = cinematica_inversa(100,0,-50);
-[t11,t22,t33] = cinematica_inversa(100,15,-50);
+[t1,t2,t3] = reverse_kinematics(100,0,-50);
+[t11,t22,t33] = reverse_kinematics(100,15,-50);
 
 deltaT1 = (t1 - t11)/50;
 deltaT2 = (t2 - t22)/50;
@@ -103,8 +103,8 @@ end
 plot3(x,y,z);
 
 
-[t1,t2,t3] = cinematica_inversa(100,15,-50);
-[t11,t22,t33] = cinematica_inversa(80,15,-50);
+[t1,t2,t3] = reverse_kinematics(100,15,-50);
+[t11,t22,t33] = reverse_kinematics(80,15,-50);
 
 deltaT1 = (t1 - t11)/50;
 deltaT2 = (t2 - t22)/50;
@@ -118,8 +118,8 @@ end
 
 plot3(x,y,z);
 
-[t1,t2,t3] = cinematica_inversa(80,15,-50);
-[t11,t22,t33] = cinematica_inversa(80,0,-50);
+[t1,t2,t3] = reverse_kinematics(80,15,-50);
+[t11,t22,t33] = reverse_kinematics(80,0,-50);
 
 deltaT1 = (t1 - t11)/50;
 deltaT2 = (t2 - t22)/50;

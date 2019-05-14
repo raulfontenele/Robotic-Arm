@@ -297,9 +297,9 @@ void write_Raul()
     delay(300);
     DesiredPosition2(80,0,-70);
     
-    DesiredPosition2(80,15,-70);
+    DesiredPosition2(80,15,-71);
     delay(500);
-    DesiredPosition2(100,15,-70);
+    DesiredPosition2(100,15,-71);
     delay(500);
 
      //=========================//
@@ -330,13 +330,13 @@ void write_Raul()
     //=========================//
     DesiredPosition2(100,0,-50);
     delay(500);
-    DesiredPosition2(100,0,-70);
+    DesiredPosition2(100,0,-72);
     delay(500);
    //=========================//
 
     // U
    
-    DesiredPosition2(100,20,-70);
+    DesiredPosition2(100,20,-72);
     delay(500);
     
     DesiredPosition2(100,0,-50);
@@ -354,7 +354,7 @@ void write_Raul()
     DesiredPosition2(100,20,-70);
     delay(500);
 
-    DesiredPosition2(60,16,-70);
+    DesiredPosition2(62,16,-70);
     delay(500);
 
     //=========================//
@@ -369,10 +369,50 @@ void write_Raul()
     delay(500);
     DesiredPosition2(100,0,-50);
     delay(500);
+    DesiredPosition2(100,0,-72);
+    delay(500);
+    DesiredPosition2(100,20,-72);
+    delay(500);
+
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
     DesiredPosition2(100,0,-70);
     delay(500);
-    DesiredPosition2(100,20,-70);
+   //=========================//
+
+       //F
+    DesiredPosition2(60,0,-70);
     delay(500);
+    DesiredPosition2(60,15,-70);
+    delay(500);
+    
+    DesiredPosition2(80,0,-50);
+    delay(500);
+    DesiredPosition2(80,0,-70);
+    delay(500);
+    
+    DesiredPosition2(80,15,-70);
+    delay(500);
+
+    
+    //=========================//
+    DesiredPosition2(100,0,-50);
+    delay(500);
+    DesiredPosition2(100,0,-71);
+    delay(500);
+   //=========================//
+
+     // O
+    DesiredPosition2(100,20,-71);
+    delay(500);
+    DesiredPosition2(60,16,-70);
+    delay(500);
+    DesiredPosition2(60,0,-70);   
+    delay(500);
+    DesiredPosition2(100,0,-70);   
+    delay(500);
+
 }
 
 

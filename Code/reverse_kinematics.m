@@ -1,4 +1,4 @@
-function [teta1,teta2,teta3 ] = cinematica_inversa( x,y,z )
+function [teta1,teta2,teta3 ] = reverse_kinematics( x,y,z )
 
 a1 = 39.45;
 a2 = 42.40;
